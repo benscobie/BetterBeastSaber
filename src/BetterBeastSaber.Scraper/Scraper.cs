@@ -1,15 +1,8 @@
-﻿using AngleSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using AngleSharp.Dom;
-using BetterBeastSaber.Scraper.Domain;
-using System.Linq;
-using System.Text.RegularExpressions;
-
+﻿
 namespace BetterBeastSaber.Scraper
 {
+    using Domain;
+
     public class Scraper
     {
         private readonly IBrowsingContext _browsingContext;

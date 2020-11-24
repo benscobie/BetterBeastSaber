@@ -1,11 +1,4 @@
-﻿using AngleSharp;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-
-namespace BetterBeastSaber.Scraper
+﻿namespace BetterBeastSaber.Scraper
 {
     class Program
     {

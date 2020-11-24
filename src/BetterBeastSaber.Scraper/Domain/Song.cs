@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BetterBeastSaber.Scraper.Domain
+﻿namespace BetterBeastSaber.Scraper.Domain
 {
     public class Song
     {
