@@ -1,4 +1,4 @@
-﻿namespace BetterBeastSaber.Scraper.Domain
+﻿namespace BetterBeastSaber.Domain
 {
     public enum Difficulty
     {

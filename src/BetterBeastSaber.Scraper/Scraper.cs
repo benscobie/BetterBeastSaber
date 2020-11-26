@@ -1,22 +1,25 @@
 ﻿using AngleSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using AngleSharp.Dom;
-using BetterBeastSaber.Scraper.Domain;
-using System.Linq;
-using System.Text.RegularExpressions;
+using AutoMapper;
+using BetterBeastSaber.Data;
+using BetterBeastSaber.Data.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace BetterBeastSaber.Scraper
 {
     public class Scraper
     {
+        private readonly ILogger<Scraper> _logger;
         private readonly IBrowsingContext _browsingContext;
+        private readonly ISongsRepository _songsRepository;
+        private readonly IMapper _mapper;
 
-        public Scraper(IBrowsingContext browsingContext)
+        public Scraper(ILogger<Scraper> logger, IBrowsingContext browsingContext, ISongsRepository songsRepository, IMapper mapper)
         {
+            _logger = logger;
             _browsingContext = browsingContext;
+            _songsRepository = songsRepository;
+            _mapper = mapper;
         }
 
         public async Task ExecuteAsync()
@@ -29,83 +32,19 @@ namespace BetterBeastSaber.Scraper
             {
                 var navigationUrl = baseUrl + $"page/{page}/";
                 var document = await _browsingContext.OpenAsync(navigationUrl);
-                var songCellSelector = ".boxed .post";
-                var songCells = document.QuerySelectorAll(songCellSelector);
 
-                foreach (var songCell in songCells)
+                var extractor = new Extractor(document);
+                var songs = extractor.ExtractSongs();
+
+                foreach (var song in songs)
                 {
-                    var song = ProcessElementToSong(songCell);
-                    if (song == null) continue;
-
-                    // TODO Add/Update song to database
+                    var songEntity = _mapper.Map<Song>(song);
+                    await _songsRepository.Update(songEntity);
                 }
 
                 page++;
-                parsedSongs = songCells.Length > 0; // TODO Properly detect last page
+                parsedSongs = songs.Count > 0; // TODO Properly detect last page
             } while (parsedSongs);
         }
-
-        private Song ProcessElementToSong(IElement element)
-        {
-            var titleNode = element.QuerySelector(".entry-title a");
-            var id = Regex.Match(titleNode.GetAttribute("href"), @"/(\w+)/[^/]*$").Groups[1].Value;
-
-            // TODO Figure out why the first song on the first place has a funky ID?
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return null;
-            }
-
-            var (thumbsUp, thumbsDown) = ExtractThumbRating(element);
-            var averageUserScore = element.QuerySelector(".circle_rating span")?.TextContent;
-            var title = titleNode.GetAttribute("title");
-
-            var song = new Song
-            {
-                Id = id,
-                Title = title,
-                ThumbsDown = thumbsDown,
-                ThumbsUp = thumbsUp,
-                Added = DateTime.Parse(element.QuerySelector(".date.published.time").GetAttribute("datetime")),
-                Description = element.QuerySelector(".post-content p").TextContent,
-                AverageUserScore = averageUserScore != null ? decimal.Parse(averageUserScore) : (decimal?)null,
-                Difficulties = ExtractDifficulties(element),
-                Categories = ExtractCategories(element)
-            };
-
-            return song;
-        }
-
-        private (int ThumbsUp, int ThumbsDown) ExtractThumbRating(IElement element)
-        {
-            var thumbsUpRoot = element.QuerySelector(".fa-thumbs-up")?.Parent.TextContent.Where(c => char.IsDigit(c)).ToArray();
-            var thumbsUp = thumbsUpRoot == null ? 0 : int.Parse(thumbsUpRoot);
-
-            var thumbsDownRoot = element.QuerySelector(".fa-thumbs-down")?.Parent.TextContent.Where(c => char.IsDigit(c)).ToArray();
-            var thumbsDown = thumbsDownRoot == null ? 0 : int.Parse(thumbsDownRoot);
-
-            return (thumbsUp, thumbsDown);
-        }
-
-        private List<Difficulty> ExtractDifficulties(IElement element)
-        {
-            var difficultyNodes = element.QuerySelectorAll(".post-difficulty").Select(c => c.TextContent);
-            return difficultyNodes.Select(ParseDifficultyText).ToList();
-        }
-
-        private Difficulty ParseDifficultyText(string difficultyText)
-        {
-            return difficultyText switch
-            {
-                "Expert+" => Difficulty.ExpertPlus,
-                _ => (Difficulty)Enum.Parse(typeof(Difficulty), difficultyText),
-            };
-        }
-
-        private List<string> ExtractCategories(IElement element)
-        {
-            return element.QuerySelectorAll(".bsaber-categories .single_category_title").Select(c => c.TextContent).ToList();
-        }
-
     }
 }

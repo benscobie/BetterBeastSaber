@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterBeastSaber.Scraper", "src\BetterBeastSaber.Scraper\BetterBeastSaber.Scraper.csproj", "{74274959-F597-4585-94B3-A0BC198BBE38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBeastSaber.Scraper", "src\BetterBeastSaber.Scraper\BetterBeastSaber.Scraper.csproj", "{74274959-F597-4585-94B3-A0BC198BBE38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBeastSaber.Data", "src\BetterBeastSaber.Data\BetterBeastSaber.Data\BetterBeastSaber.Data.csproj", "{26263A24-2BCC-405E-B71F-7733512217B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterBeastSaber.Domain", "src\BetterBeastSaber.Domain\BetterBeastSaber.Domain\BetterBeastSaber.Domain.csproj", "{50BBDF7E-6124-4EB2-9FE0-8F5C11069DEE}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A970F2DE-641C-4735-83AF-7472ADDA4488}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{74274959-F597-4585-94B3-A0BC198BBE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74274959-F597-4585-94B3-A0BC198BBE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74274959-F597-4585-94B3-A0BC198BBE38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26263A24-2BCC-405E-B71F-7733512217B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26263A24-2BCC-405E-B71F-7733512217B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26263A24-2BCC-405E-B71F-7733512217B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26263A24-2BCC-405E-B71F-7733512217B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50BBDF7E-6124-4EB2-9FE0-8F5C11069DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50BBDF7E-6124-4EB2-9FE0-8F5C11069DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50BBDF7E-6124-4EB2-9FE0-8F5C11069DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50BBDF7E-6124-4EB2-9FE0-8F5C11069DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A970F2DE-641C-4735-83AF-7472ADDA4488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A970F2DE-641C-4735-83AF-7472ADDA4488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A970F2DE-641C-4735-83AF-7472ADDA4488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A970F2DE-641C-4735-83AF-7472ADDA4488}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
