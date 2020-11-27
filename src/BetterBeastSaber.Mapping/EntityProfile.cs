@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BetterBeastSaber.Data.Entities;
 
-namespace BetterBeastSaber.Scraper.Mapping
+namespace BetterBeastSaber.Mapping
 {
     public class EntityProfile : Profile
     {

@@ -49,7 +49,7 @@ namespace BetterBeastSaber.Scraper
                 ThumbsDown = thumbsDown,
                 ThumbsUp = thumbsUp,
                 Added = DateTime.Parse(element.QuerySelector(".date.published.time").GetAttribute("datetime")),
-                Description = element.QuerySelector(".post-content p").TextContent,
+                Description = element.QuerySelector(".post-content p")?.TextContent,
                 AverageUserScore = averageUserScore != null ? decimal.Parse(averageUserScore) : (decimal?) null,
                 Difficulties = ExtractDifficulties(element),
                 Categories = ExtractCategories(element)

@@ -1,10 +1,10 @@
 ﻿using AngleSharp;
 using AutoMapper;
 using BetterBeastSaber.Data;
-using BetterBeastSaber.Scraper.Mapping;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
+using BetterBeastSaber.Mapping;
 
 namespace BetterBeastSaber.Scraper
 {

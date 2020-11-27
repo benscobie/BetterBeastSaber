@@ -39,7 +39,7 @@ namespace BetterBeastSaber.Scraper
                 foreach (var song in songs)
                 {
                     var songEntity = _mapper.Map<Song>(song);
-                    await _songsRepository.Update(songEntity);
+                    await _songsRepository.UpdateAsync(songEntity);
                 }
 
                 page++;

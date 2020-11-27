@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BetterBeastSaber.Data\BetterBeastSaber.Data.csproj" />
     <ProjectReference Include="..\BetterBeastSaber.Domain\BetterBeastSaber.Domain.csproj" />
+    <ProjectReference Include="..\BetterBeastSaber.Mapping\BetterBeastSaber.Mapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>

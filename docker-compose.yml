@@ -21,6 +21,18 @@ services:
     depends_on:
       - mongo
 
+  betterbeastsaber.api:
+    image: ${DOCKER_REGISTRY-}betterbeastsaberapi
+    ports:
+      - 8082:80
+    environment:
+      MongoConnection__Host: mongo
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: src/BetterBeastSaber.API/Dockerfile
+
   betterbeastsaber.scraper:
     image: ${DOCKER_REGISTRY-}betterbeastsaberscraper
     environment:
